@@ -9,4 +9,6 @@ func main() {
 	// I/Oのバッファリング
 	// 省メモリなのはこっち
 	Bufio()
+
+	Checktty()
 }

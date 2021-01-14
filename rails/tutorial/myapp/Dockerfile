@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-alpine
+FROM ruby:2.6
 
 ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
@@ -11,31 +11,17 @@ ENV PATH /app/bin:$BUNDLE_BIN:$PATH
 
 WORKDIR $ROOT
 
-RUN apk update && \
-    apk upgrade && \
-    apk add --no-cache \
-    gcc \
-    g++ \
-    libc-dev \
-    libxml2-dev \
-    linux-headers \
-    make \
-    nodejs \
-    postgresql \
-    postgresql-dev \
-    tzdata \
-    yarn && \
-    apk add --virtual build-packs --no-cache \
-    build-base \
-    curl-dev
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update -qq \
+    && apt-get install -y nodejs yarn
 
 COPY Gemfile $ROOT
 COPY Gemfile.lock $ROOT
 
 RUN bundle install -j4
 #　不要ファイル削除
-RUN rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* /tmp/* && \
-    apk del build-packs
+RUN rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* /tmp/*
 
 COPY . $ROOT
 

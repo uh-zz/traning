@@ -2,6 +2,15 @@
 
 # キャッシュ用ロジック
 
+# /hoge/fuga/.redis_search/cache.txt
+
+# 最近使用した項目
+# >>>>>>>>>>>>>>>>>>>>>
+# key1
+# key2
+# key3
+# <<<<<<<<<<<<<<<<<<<<<
+
 cache_file="/hoge/fuga/.redis_search/cache.txt"
 cache_target=`cat $cache_file`
 

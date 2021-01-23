@@ -21,3 +21,19 @@ func TestFiboClosure(t *testing.T) {
 		fmt.Println("res1:", res1, "res2:", res2)
 	}
 }
+
+func BenchmarkFibo(b *testing.B) {
+	b.ResetTimer()
+	for i := 0; i < 20; i++ {
+		fibo(i)
+	}
+}
+
+func BenchmarkFiboClosure(b *testing.B) {
+
+	f := fiboClosure()
+	b.ResetTimer()
+	for i := 0; i < 1000; i++ {
+		f()
+	}
+}

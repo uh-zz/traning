@@ -59,3 +59,4 @@ volumes:
   node_modules:
   postgres:
   bundle:
+    driver: local

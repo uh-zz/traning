@@ -4,7 +4,7 @@ class User < ApplicationRecord
     before_create :create_activation_digest
 
     # has_many -> UserとMicropostは 1対多
-    has_many :microposts
+    has_many :microposts, dependent: :destroy
 
     validates :name, presence: true, length:{ maximum:50 }
 

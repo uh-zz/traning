@@ -4,6 +4,10 @@ birthYear = 1989
 
 birthYear = '平成'
 
-birthYear = '令和'
-birthYear = null
+// birthYear = '令和'
+// birthYear = null
 
+const address = `hoge
+fuga`
+
+console.log(address)

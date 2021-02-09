@@ -76,6 +76,130 @@ nodestroy.forEach((station, index) => {
     console.log(index, station);
 })
 
+// 読み込み専用のreadonlyは型名の前につける
 const a: readonly number[] = [1, 2, 3];
 
 // a[0] =1
+
+// anyは型チェックを放棄
+function someFunction(opt: any) {
+    console.log(opt.debug);
+}
+
+
+type BirthYear = number | string;
+
+const birthday: BirthYear = "平成";
+console.log(birthday);
+
+type FoodMenu = "北極" | "冷やし味噌";
+const myOrder: FoodMenu = "北極";
+orderFood(myOrder);
+
+function orderFood(food: FoodMenu) {
+    console.log(food);    
+}
+
+// 構造体やん
+type Person = {
+    name: string;
+    favoriteBank: string;
+    favoriteGyudon: string;
+}
+
+// インターフェースを指定　←わかりよい
+const person: Person = {
+    name: "hoge",
+    favoriteBank: "mizuho",
+    favoriteGyudon: "matsuya"
+}
+
+console.log(person)
+
+// readonlyを使うと読み込み専用
+// 変数名の後ろに?をつけるとオプションにできる
+type Person2 = {
+    name: string;
+    readonly favoriteBank: string;
+    favoriteGyudon?: string;
+}
+
+let person2: Person2 = {
+    name: "fuga",
+    favoriteBank: "smbc",
+}
+
+person2.name = "hoge";
+
+// これがエラーになる
+// person2.favoriteBank = "mizuho";
+
+// Partialをつけると全ての要素の設定が必要なくなる
+const wzz: Partial<Person> = { name: "hoge"};
+
+// mapを作る
+let postalCodes: { [key: string]: string } = {
+    "602-0000": "京都市上京区",
+    "602-0827": "京都市上京区相生町",
+    "602-0828": "京都市上京区愛染寺町",
+    "602-0054": "京都市上京区飛鳥井町",
+};
+
+postalCodes["601-0054"] = "京都市上京区飛鳥井町";
+
+console.log(postalCodes);
+
+for (const key of Object.keys(postalCodes)) {
+    
+}
+
+for (const value of Object.values(postalCodes)) {
+    
+}
+
+// key と値両方とりだす
+for (const [key, value] of Object.entries(postalCodes)) {
+    console.log(key, value)
+}
+
+
+type Twitter = {
+    twitterId: string;
+}
+
+type Instagram = {
+    instagramId: string;
+}
+  
+// 型合成
+const sns: Twitter & Instagram = {
+    twitterId: "hoge",
+    instagramId: "fuga"
+}
+
+// 型合成（インターフェース）
+interface PartyPeople extends Twitter, Instagram {
+}
+
+const sns2: PartyPeople = {
+    twitterId: "hoge",
+    instagramId: "fuga"
+}
+
+// userNameOrIdは文字列か数値
+let userNameOrId: string | number = getUser();
+
+// 型ガードにはtypeofを使う
+if (typeof userNameOrId === "string") {
+    // このif文の中では、userNameOrIdは文字列型として扱われる
+    this.setState({
+        userName: userNameOrId.toUpperCase()
+    });
+} else {
+    // このif文の中では、userNameOrIdは数値型として扱われる
+    const user = this.repository.findUserByID(userNameOrId);
+    this.setState({
+        userName: user.getName()
+    });
+}
+

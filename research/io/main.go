@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
-	"strings"
 )
 
 // Go 1.16で変更されたio/ioのReadAllの実装を理解するための試行錯誤
@@ -40,21 +37,32 @@ func main() {
 	// 長さを変えずに容量だけ増やす
 	// -> 実データを傷つけずにスライスの容量(基底配列の長さ)を増やす
 	b = append(b, 0)[:len(b)]
+
 	fmt.Println("b = append(b, 0) -> len:", len(b), "cap:", cap(b))
 
-	r := strings.NewReader("hello world")
-
-	a, err := ioutil.ReadAll(r)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("a is", string(a))
-
-	bi, err := ioutil.ReadAll(r)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("b is", string(bi))
+	// Go 1.16のreadAll抜粋
+	//
+	//
+	// for {
+	// 	if len(b) == cap(b) {
+	// 		// Add more capacity (let append pick how much).
+	// 		b = append(b, 0)[:len(b)]
+	// 	}
+	// 	n, err := r.Read(b[len(b):cap(b)])
+	// -------------------------------------
+	// 現時点での解釈
+	// ここまでのbはcap（基底配列の長さ）まで読み込んでいる
+	// つまり、len(b) + n = cap(b)
+	//
+	// 明示的にしているだけだと解釈した（ほんとは入れなくてもよい？）
+	// 	b = b[:len(b)+n]
+	//
+	// -------------------------------------
+	// 	if err != nil {
+	// 		if err == EOF {
+	// 			err = nil
+	// 		}
+	// 		return b, err
+	// 	}
+	// }
 }

@@ -51,3 +51,33 @@ const match = "01-2345-6789".match(/^(?<AC>0\d{1})-(?<MA>\d{4})-(?<SA>\d{4})$/);
 // anyにしてるけど正しくなさそう
 const { AC, MA, SA }: any = match != null ? match.groups : null;
 console.log(AC, MA, SA);
+
+// JSON
+//
+//
+//
+type Person3 = { name: string }
+let person3: Person3;
+// JSONをパースするときはtryで囲うとよい
+try{
+    person3 = JSON.parse(input)
+} catch(e: unknown) {
+    // fallback
+    // SyntaxErrorの場合は仮の値を入れる
+    person3 = { name: "hoge" }
+}
+
+// JSONは作成されたのではなく、発見された
+
+
+// URL
+//
+//
+//
+const u = new URL("https://developer.mozilla.org/en-US/docs/Web/API/URL#Methods");
+
+
+// searchParams: URLSearchParams { 'search' => 'url search params' }
+// クエリーパラメーターを解析してくれる
+const c = new URL("https://caniuse.com/?search=url%20search%20params")
+console.log(c)

@@ -81,3 +81,59 @@ const u = new URL("https://developer.mozilla.org/en-US/docs/Web/API/URL#Methods"
 // クエリーパラメーターを解析してくれる
 const c = new URL("https://caniuse.com/?search=url%20search%20params")
 console.log(c)
+
+class SmallAnimal {
+
+    // プロパティ定義はクラス宣言の中で行う
+    animalType: string
+
+    // コンストラクタ（省略可能）
+    constructor() {
+        this.animalType = "ポメラニアン";
+    }
+
+    say() {
+        console.log(`animalType: ${this.animalType}`)
+    }
+}
+
+const smallAnimal = new SmallAnimal();
+smallAnimal.say();
+
+class SmallDog {
+
+    // このクラスの中からのみ参照可
+    // private secretPlace: string
+
+    // typescript固有の書き方
+    // コンストラクタにアクセス修飾子をつけると
+    // そのままプロパティになる（便利）
+    //  
+    // ※つけないとエラー
+    constructor(private secretPlace: string) {
+
+    }
+
+    // ほる
+    dig(): string {
+        return this.secretPlace;
+    }
+
+    // 埋める
+    bury(treasure: string) {
+        this.secretPlace = treasure
+    }    
+}
+
+const miniatureDachshund = new SmallDog("骨とか");
+
+// miniatureDachshund.bury("何か");
+
+// クラスの外からは参照不可
+// miniatureDachshund.secretPlace;
+
+console.log(miniatureDachshund.dig());
+
+// クラスの仕組みができる前のJavaScriptでは
+// privateを表現するために、メンバー名の前に「_」をつけて
+// 明示的にアクセスしないように促した

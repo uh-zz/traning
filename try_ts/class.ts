@@ -265,7 +265,7 @@ const whitney = {
     start() {
         setTimeout(() => {
             this.sing()
-        }, 3000)
+        }, 30)
     }
 }
 whitney.start()
@@ -302,3 +302,56 @@ whitney.start()
 //       console.log(`私は${this._fav}が好きです`);
 //     };
 //   }
+
+// 継承
+//
+//
+class SmallAnimal2 {
+    eat() {
+        console.log("hogehoge");
+    }
+}
+
+class Pomeranian extends SmallAnimal2 {
+    eat() {
+        console.log("i'm pomeranian");
+    }
+}
+
+const pome = new Pomeranian();
+pome.eat()
+
+// インターフェース
+//
+//
+interface Animal {
+    eat(): void;
+}
+
+class Pomeranian2 implements Animal {
+    eat() {}
+}
+
+// 未実装だとエラー
+// class Pomeranian3 implements Animal {
+// }
+
+// デコレータ
+//
+//
+// コンパイル通らず、、
+// とりあえず使う時になったら改めて調査する
+// function StrongZero(target: any) {
+//     target.prototype.drink = function () {
+//         console.log('i drank strongzero');
+//     };
+//     return target;
+// }
+
+// @StrongZero
+// class Dranker {
+
+// }
+
+// const sa = new Dranker();
+// sa.drink();

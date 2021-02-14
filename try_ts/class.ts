@@ -203,3 +203,102 @@ class Point {
 
 console.log(new Point(10, 20));
 console.log(Point.polar(10, Math.PI * 0.25));
+
+
+// thisについて調べたこと
+// 
+const whitney = {
+
+    sing() {
+        console.log("and i will always love you");
+    },
+
+    // setTimeout経由でfunctionに定義したthis.sing()は呼べない
+    //
+    //
+    // thisの参照先が、whitneyなのかwindowなのかぶれる
+    // start() {
+    //     setTimeout(function() {
+    //         this.sing()
+    //     }, 3000)
+    // }
+
+    // 実行コンテキストをコントロールする方法
+    //
+    // 変数selfを用意してthisを外出しにする
+    //
+    // thisは実行時のコンテキストに依存してしまう
+    //
+    //
+    // setTimeoutの中ではグローバルにコンテキストが移るので、
+    // whitneyを指すthisではなくなる
+    //
+    // 一時的な変数selfをアッパースコープで定義して、
+    // self経由でwhitneyを呼び出す
+    //
+    //
+    // この実装方法は、JavaScriptの仕様である
+    // 内側から外側のスコープへと順番に変数が定義されているか探す仕組み
+    // →　スコープチェーンを利用したもの
+    //
+    // アッパースコープを用意しない場合、
+    // thisは最上部のwindowでそれ以上ないのでwindowがthisに入る
+    // start() {
+    //     const self = this;
+    //     setTimeout(function() {
+    //         self.sing();
+    //     }, 3000);
+    // } 
+
+    // bind()はES5で追加された
+    // 関数が呼ばれる時に依存するコンテキストを指定するための関数
+    // start() {
+    //     setTimeout(function() {
+    //         this.sing();        
+    //     }.bind(this), 3000);
+    // }
+
+    // アロー関数はES6で追加された
+    // アロー関数ではthis宣言時のスコープ(レキシカルスコープ)のthisを参照する
+    // 
+    // 宣言時とはつまり、whitneyの宣言時
+    start() {
+        setTimeout(() => {
+            this.sing()
+        }, 3000)
+    }
+}
+whitney.start()
+
+//　typescriptでの書き方
+//
+//
+// class SmallAnimal {
+//
+    // プロパティを作成(このプロパティをインスタンスクラスフィールドとよぶ)
+    //
+    // インスタンスクラスフィールドを使うことで、クラス宣言時にプロパティ宣言ができ
+    // インスタンス化される時に設定される
+//     fav = "小田原";
+//
+//
+    // イベントハンドラなどにメソッドを渡すとき、
+    // 以前はthisごとbindして渡していたが、
+    // アロー関数を使うことで、インスタンスクラスフィールド含め
+    // bindなしで問題なく渡せる    
+//     say = () => {
+//       console.log(`私は${this.fav}が好きです`);
+//     };
+// }
+//
+// 以前はconstructorでbindしていた
+// class SmallAnimal {
+//     constructor() {
+//       this._fav = "小春日";
+//       this.say = this.say.bind(this);
+//     }
+  
+//     say() {
+//       console.log(`私は${this._fav}が好きです`);
+//     };
+//   }

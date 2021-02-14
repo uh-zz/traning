@@ -137,3 +137,69 @@ console.log(miniatureDachshund.dig());
 // クラスの仕組みができる前のJavaScriptでは
 // privateを表現するために、メンバー名の前に「_」をつけて
 // 明示的にアクセスしないように促した
+
+
+// staticメンバ
+//
+//
+// Javaと同じ
+// インスタンスではなくクラスで１つだけの要素につける
+class StaticSample {
+
+    // 静的なプロパティ
+    static StaticVariable: number;
+    
+    variable: number;
+
+    // 静的なメソッド
+    static classMethod() {
+        
+        console.log(this.StaticVariable);
+
+        console.log(StaticSample.StaticVariable);
+
+        // 通常のプロパティは参照不可
+        // console.log(this.variable);     
+    }
+
+    // 通常のメソッド
+    method() {
+        
+        // thisでの静的プロパティは参照不可
+        // console.log(this.StaticVariable);
+
+        // クラス名での静的プロパティは参照可
+        console.log(StaticSample.StaticVariable);
+
+        // 通常のプロパティは参照可
+        console.log(this.variable);     
+    }
+}
+
+// 静的メソッドが便利そうな唯一の使い道
+//
+// 多用することはない
+//
+//
+// ファクトリーメソッドの実装
+// 
+// [TODO] メリット調べる
+// インスタンスを生成する専用のメソッドだから？
+// 使うときにnewを明示的にしなくていいから？
+class Point {
+
+    constructor(public x: number, public y: number) {
+
+    }
+
+    // 極座標を作成するファクトリーメソッド
+    static polar(length: number, angle: number) {
+        return new Point(
+            length * Math.cos(angle),
+            length * Math.sin(angle)
+        );
+    } 
+}
+
+console.log(new Point(10, 20));
+console.log(Point.polar(10, Math.PI * 0.25));

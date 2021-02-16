@@ -70,3 +70,29 @@ class NoNetWorkError extends BaseError {}
 async function getUser() {
     throw new NetWorkAccessError(401, "hoge");
 }
+
+// 例外処理機構を忘れてエラーハンドリングする
+//
+// Goみたいに関数の返り値の最後がエラーという規約にする
+type User = {
+    name: string;
+    age: number;
+}
+
+// オブジェクトで返す方法
+//
+// こういう書き方するようにしよう
+// 返り値はオプション化する
+function create(name: string, age: number): {user?: User, error?: Error} {
+    if (age < 0) {
+        return {
+            error: new Error("hoge"),
+        }
+    }
+    return {
+        user: {
+            name,
+            age,
+        }
+    }
+} 

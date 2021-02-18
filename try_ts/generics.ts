@@ -87,3 +87,55 @@ function getProperty(obj: ISomeObject, key: keyof ISomeObject) {
 function getPropertyGen<S, T extends keyof S>(obj: S, key: T) {
         return obj[key];
 }
+
+// ジェネリクスでできること!!!
+//
+// 利用する側の手間を減らしつつ、型チェックを厳しくすること
+//
+//
+// ジェリクスが any や unknown 、合併型と違うところ
+//
+//
+// any や unknown の変数に値を設定してしまうと、型情報がリセットされる
+//
+// 取り出す時に適切な型情報がないと、エラーチェックやエディタの補完が効かない
+//
+//
+// any 版の遅延初期化関数
+// function lazyInit(init: () => any): () => any {
+//     let cache: any;
+//     let isInit = false;
+//     return function(): any {
+//       if (!isInit) {
+//         cache = init();
+//       }
+//       return cache;
+//     }
+// }
+
+// const getter = lazyInit(() => "initialized");
+// const value = getter();
+
+// valueは any型なので補完が効かない
+// console.log(value);
+
+// ジェネリクス版の遅延初期化関数
+function lazyInit<T>(init: () => T): () => T {
+    let cache: T;
+    let isInit = false;
+    return function(): T {
+      if (!isInit) {
+        cache = init();
+      }
+      return cache;
+    }
+}
+
+const getter = lazyInit(() => "initialized");
+const value = getter();
+
+// valueは string型なのでメソッド補完が効く
+console.log(value);
+
+
+// まとめとして、ジェネリクスを使ったコードは難解になりがち

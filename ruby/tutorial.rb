@@ -60,3 +60,29 @@ puts n
 if n > 0 then "hgoe"
 else "fuga"
 end
+
+# returnは書かないのが主流らしい
+def add(a, b)
+    a + b
+
+    # これもいける
+    # return a + b
+end
+puts add(1, 2)
+
+# returnを使い所は早期リターンしたいとき
+def greeting(country)
+    return 'please enter your country' if country.nil?
+
+    if country == 'japan'
+        'ほげ'
+    else
+        'hello'
+    end
+end
+
+puts greeting(nil)
+
+# 引数を取らないときは()を省略することが多い
+def hoge
+end

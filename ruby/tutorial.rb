@@ -30,7 +30,6 @@ puts 0.1r * 3.0r == 0.3
 # 普通の小数に戻したいとき
 puts (0.1r * 3.0r).to_f
 
-
 # インクリメントの仕方
 # ++は使えない
 # n++
@@ -38,15 +37,14 @@ n = 0
 n += 1
 puts n
 
-
 # rubyのifは最後に評価された式を戻り値として返す。。
 # ええ。。
 res =
-    if n > 0
-        "hoge"
-    else
-        "fuga"
-    end
+  if n > 0
+    'hoge'
+  else
+    'fuga'
+  end
 
 puts res
 
@@ -57,32 +55,33 @@ puts n
 # thenを入れると１行にまとまる
 # あまりつかわないらしい
 # 。。。
-if n > 0 then "hgoe"
-else "fuga"
+if n.positive? then 'hgoe'
+else 'fuga'
 end
 
 # returnは書かないのが主流らしい
 def add(a, b)
-    a + b
+  a + b
 
-    # これもいける
-    # return a + b
+  # これもいける
+  # return a + b
 end
 puts add(1, 2)
 
 # returnを使い所は早期リターンしたいとき
 def greeting(country)
-    return 'please enter your country' if country.nil?
+  return 'please enter your country' if country.nil?
 
-    if country == 'japan'
-        'ほげ'
-    else
-        'hello'
-    end
+  if country == 'japan'
+    'ほげ'
+  else
+    'hello'
+  end
 end
 
 puts greeting(nil)
 
 # 引数を取らないときは()を省略することが多い
-def hoge
-end
+def hoge; end
+
+s

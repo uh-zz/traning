@@ -40,7 +40,7 @@ puts n
 # rubyのifは最後に評価された式を戻り値として返す。。
 # ええ。。
 res =
-  if n > 0
+  if n.positive?
     'hoge'
   else
     'fuga'
@@ -83,5 +83,3 @@ puts greeting(nil)
 
 # 引数を取らないときは()を省略することが多い
 def hoge; end
-
-s

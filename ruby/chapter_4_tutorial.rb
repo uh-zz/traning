@@ -52,3 +52,36 @@ p sum
 
 # こんなトリッキーなこともできる
 p %w[mon tue wed thu fri sat].reduce('sun') { |result, s| "#{result}, #{s}" }
+
+# 配列の作りかた
+
+# ふむふむ
+p (1..5).to_a
+
+# ?!
+# トリッキー
+p [*1..5]
+
+# rgb変換
+# それぞれサンプル見ずにトライ（えらい
+#  10 -> 16
+def to_hex(r, g, b)
+  format('#%#<red>x%#<green>x%#<blue>x', red: r, green: g, blue: b).gsub(/0x/, '')
+end
+
+# 16 -> 10
+# やりたいことはこっちのがわかりやすい
+def to_ints(hex_str)
+  hex_str.delete_prefix('#').scan(/.{1,2}/).map(&:hex)
+end
+
+# サンプルのコード
+# \wで#をフィルタリングできてる（ぐぬぬ
+def to_ints_sample(hex)
+  hex.scan(/\w\w/).map(&:hex)
+end
+
+p to_hex(255, 255, 255)
+p to_ints('#ffffff')
+p to_ints('#043c78')
+p to_ints_sample('#043c78')

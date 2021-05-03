@@ -85,3 +85,31 @@ p to_hex(255, 255, 255)
 p to_ints('#ffffff')
 p to_ints('#043c78')
 p to_ints_sample('#043c78')
+
+# 同じ要素の配列を作る
+same_factor = []
+same_factor << 1 while same_factor.size < 5
+p same_factor
+
+# rubyでもforで書けるが、ローカル変数のスコープがなくなるのでつかわない
+# for local_n in numbers
+#   sum += local_n
+# end
+#
+# これはエラーじゃない
+# p local_n
+
+# よくあるやつ
+question = [
+  'わたしをたすけてくれ',
+  'まおうをたおしてくれ!',
+  'きみが「はい」というまでききつづける'
+]
+question.each do |n|
+  print "#{n} => "
+  answer = %w[yes no].sample
+  p answer
+
+  # はいと答えなければ聞き返す
+  redo unless answer == 'yes'
+end

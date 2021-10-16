@@ -16,4 +16,10 @@ truck_3:3
 
 ## Q2
 
+```
+go run question_2.go griffin vampire dragon troll medusa
+
+troll,dragon,medusa,griffin,vampire
+```
+
 ## Q3

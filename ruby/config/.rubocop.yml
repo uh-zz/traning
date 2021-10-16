@@ -45,7 +45,18 @@ Style/FrozenStringLiteralComment:
 Style/RedundantSelf:
   Enabled: false
 
+# メソッドパラメータ名の最小文字数を設定
+Naming/MethodParameterName:
+  MinNameLength: 1
+
+# モジュールのnest/compact設定
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 ##################### Lint ##################################
+
+Lint/FloatComparison:
+  Enabled: false
 
 ##################### Metrics ##################################
 

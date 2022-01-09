@@ -1,6 +1,7 @@
 use std::ops::Add;
 use std::time::Duration;
 
+// FYI: https://github.com/rust-in-action/code
 fn main() {
     // rustの変数はデフォルトで非可変→read-only
     let a = 10;

@@ -9,5 +9,9 @@ fn greet_world() {
 }
 
 fn main() {
+    // rustの変数はデフォルトで非可変→read-only
+    let a = 10;
+    println!("{}", a);
+
     greet_world()
 }

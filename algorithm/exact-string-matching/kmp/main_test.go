@@ -27,7 +27,12 @@ func Test_patternMatchTable(t *testing.T) {
 		args args
 		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "test",
+			args: args{
+				w: "aabaaba",
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

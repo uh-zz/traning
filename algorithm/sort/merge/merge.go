@@ -1,29 +1,4 @@
-package main
-
-import (
-	"fmt"
-	"time"
-
-	"github.com/uh-zz/traning/algorithm/shuffle"
-)
-
-func main() {
-
-	input := shuffle.RandomIntList(1000000)
-
-	startTime := time.Now()
-
-	inputLength := len(input)
-
-	// fmt.Println("before sort->", input)
-
-	MergeSort(&input, 0, inputLength)
-
-	// fmt.Println("after sort->", input)
-
-	endTime := time.Now()
-	fmt.Printf("%f seconds\n", (endTime.Sub(startTime)).Seconds())
-}
+package sort
 
 // MergeSort マージソート
 func MergeSort(input *[]int, left, right int) {

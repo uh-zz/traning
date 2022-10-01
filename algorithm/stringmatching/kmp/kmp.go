@@ -1,15 +1,6 @@
-package main
+package kmp
 
 import "fmt"
-
-func main() {
-	text := "Testers have tested many programs."
-	word := "tested"
-	pTable := patternMatchTable(word)
-
-	kmp(word, text, pTable)
-	nonkmp(word, text)
-}
 
 func patternMatchTable(w string) []int {
 	var (

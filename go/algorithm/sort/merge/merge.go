@@ -1,7 +1,10 @@
 package sort
 
+import "fmt"
+
 // MergeSort マージソート
 func MergeSort(input *[]int, left, right int) {
+	fmt.Println("input->", *input, "left->", left, "right->", right)
 
 	// 要素数1
 	if right-left == 1 {
@@ -27,13 +30,12 @@ func MergeSort(input *[]int, left, right int) {
 		buffer = append(buffer, (*input)[index])
 	}
 
-	// fmt.Println("buffer->", buffer)
-	// fmt.Println("[calculating] before input->", input)
+	fmt.Println("buffer->", buffer, "left->", left, "right->", right)
 	// マージする
 	scopeLeft := 0
 	scopeRight := len(buffer) - 1
 	for index := left; index < right; index++ {
-
+		fmt.Println("scopeLeft->", scopeLeft, "scopeRight->", scopeRight)
 		if buffer[scopeLeft] <= buffer[scopeRight] {
 			// 左側採用
 			(*input)[index] = buffer[scopeLeft]
@@ -44,5 +46,5 @@ func MergeSort(input *[]int, left, right int) {
 			scopeRight--
 		}
 	}
-	// fmt.Println("[calculating] after input->", input)
+	fmt.Println("[calculating] after input->", input)
 }

@@ -21,25 +21,37 @@ func patternMatchTable(w string) []int {
 	return t
 }
 
-func kmp(word, text string, t []int) {
+func kmp(word, text string, patternTable []int) []int {
+	if len(word) > len(text) {
+		return nil
+	}
+
 	var (
-		i, j int
+		i, j    int
+		matches []int
 	)
+	fmt.Printf("word: %s, text: %s, pattern: %v\n", word, text, patternTable)
 	for i+j < len(text) {
+		// fmt.Printf(" word[j]: %s, text[i+j]: %s\n", string(word[j]), string(text[i+j]))
 		if word[j] == text[i+j] {
 			j++
 			if j == len(word) {
-				// fmt.Printf("Found at %d\n", i)
+				fmt.Printf("Found at i: %d\n", i)
+				matches = append(matches, i)
+
+				i = i + j
 				j = 0
-				break
 			}
 		} else {
-			i = i + j - t[j]
-			if j > 0 {
-				j = t[j]
+			i = i + j - patternTable[j]
+			if patternTable[j] > -1 {
+				j = patternTable[j]
+			} else {
+				j = 0
 			}
 		}
 	}
+	return matches
 }
 
 func nonkmp(word, text string) {

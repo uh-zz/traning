@@ -27,24 +27,31 @@ func Test_patternMatchTable(t *testing.T) {
 
 func Test_kmp(t *testing.T) {
 	type args struct {
-		word string
-		text string
-		t    []int
+		word         string
+		text         string
+		patternTable []int
 	}
 	tests := []struct {
 		name string
 		args args
+		want []int
 	}{
+		// TODO: Add test cases.
 		{
-			name: "test",
+			name: "test1",
 			args: args{
-				word: "ababaca",
+				word:         "ab",
+				text:         "ababacaab",
+				patternTable: patternMatchTable("ababacaab"),
 			},
+			want: []int{0, 2, 7},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			kmp(tt.args.word, tt.args.text, tt.args.t)
+			if got := kmp(tt.args.word, tt.args.text, tt.args.patternTable); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("kmp() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }

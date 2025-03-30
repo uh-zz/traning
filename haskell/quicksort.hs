@@ -8,7 +8,7 @@
 -- Haskellの関数型プログラミングの特徴として、明示的な終了条件を記述するのではなく、再帰と基底ケースの設計によって自然に処理が終了するように実装されています。
 quicksort :: (Ord a) => [a] -> [a]
 quicksort [] = []
-quicksort (x:xs) =
-    let smallerOrEqual = [ a | a <- xs, a <= x ]
-        larger = [ a | a <- xs, a > x ]
-    in quicksort smallerOrEqual ++ [x] ++ quicksort larger
+quicksort (x : xs) =
+  let smallerOrEqual = [a | a <- xs, a <= x]
+      larger = [a | a <- xs, a > x]
+   in quicksort smallerOrEqual ++ [x] ++ quicksort larger
